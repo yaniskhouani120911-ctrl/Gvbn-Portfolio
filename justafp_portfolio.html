@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JustAFrenchPerson — Roblox Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; image-rendering: pixelated; }
+
+  :root {
+    --pixel-black: #0a0a0a;
+    --pixel-white: #f0f0f0;
+    --pixel-red: #e74c3c;
+    --pixel-green: #2ecc71;
+    --pixel-blue: #3498db;
+    --pixel-yellow: #f1c40f;
+    --pixel-purple: #9b59b6;
+    --pixel-cyan: #1abc9c;
+    --pixel-orange: #e67e22;
+    --pixel-gray: #7f8c8d;
+    --pixel-dark: #1a1a2e;
+    --pixel-mid: #16213e;
+    --pixel-card: #0f3460;
+    --font-pixel: 'Press Start 2P', monospace;
+    --font-vt: 'VT323', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--pixel-dark);
+    color: var(--pixel-white);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--pixel-mid);
+    border-bottom: 3px solid var(--pixel-yellow);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    color: var(--pixel-yellow);
+    text-shadow: 2px 2px 0 #7d6608;
+    letter-spacing: 1px;
+  }
+
+  .nav-links { display: flex; gap: 20px; list-style: none; }
+  .nav-links a { color: var(--pixel-white); text-decoration: none; font-size: 8px; transition: color 0.1s; cursor: pointer; }
+  .nav-links a:hover { color: var(--pixel-yellow); }
+
+  /* HERO */
+  .hero {
+    padding: 60px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(52,152,219,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-sprite {
+    width: 80px; height: 80px;
+    margin: 0 auto 24px;
+    animation: idle 0.8s steps(1) infinite;
+  }
+
+  @keyframes idle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes blink {
+    0%, 90%, 100% { opacity: 1; }
+    95% { opacity: 0; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .username {
+    font-size: 18px;
+    color: var(--pixel-yellow);
+    text-shadow: 3px 3px 0 #7d6608, -1px -1px 0 rgba(0,0,0,0.5);
+    margin-bottom: 8px;
+    animation: blink 4s infinite;
+    letter-spacing: 2px;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-vt);
+    font-size: 22px;
+    color: var(--pixel-cyan);
+    margin-bottom: 28px;
+    letter-spacing: 2px;
+  }
+
+  .status-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #071f12;
+    border: 2px solid var(--pixel-green);
+    padding: 8px 16px;
+    margin-bottom: 16px;
+  }
+
+  .status-dot { width: 8px; height: 8px; background: var(--pixel-green); animation: pulse 1s steps(1) infinite; }
+  .status-text { font-size: 7px; color: var(--pixel-green); }
+
+  /* SECTIONS */
+  section { padding: 48px 32px; max-width: 960px; margin: 0 auto; }
+
+  .section-title {
+    font-size: 12px;
+    color: var(--pixel-yellow);
+    text-shadow: 2px 2px 0 #7d6608;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::before { content: '▶'; color: var(--pixel-red); font-size: 10px; }
+  .divider { border: none; border-top: 3px dashed rgba(240,240,240,0.15); margin: 0; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+  .char-card { width: 130px; flex-shrink: 0; }
+  .char-frame { border: 3px solid var(--pixel-yellow); background: #0a1628; display: flex; flex-direction: column; align-items: center; padding: 16px 12px 12px; margin-bottom: 10px; }
+  .char-name-tag { font-size: 7px; color: var(--pixel-yellow); margin-top: 10px; text-align: center; }
+  .char-level { font-size: 7px; color: var(--pixel-gray); margin-top: 4px; }
+  .about-text { font-family: var(--font-vt); font-size: 20px; color: var(--pixel-white); line-height: 1.7; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .tag { font-size: 7px; padding: 5px 10px; border: 2px solid; background: rgba(0,0,0,0.3); }
+  .tag-blue { border-color: var(--pixel-blue); color: var(--pixel-blue); }
+  .tag-green { border-color: var(--pixel-green); color: var(--pixel-green); }
+  .tag-purple { border-color: var(--pixel-purple); color: var(--pixel-purple); }
+  .tag-yellow { border-color: var(--pixel-yellow); color: var(--pixel-yellow); }
+  .tag-cyan { border-color: var(--pixel-cyan); color: var(--pixel-cyan); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+  .project-card { border: 3px solid var(--pixel-cyan); background: #071518; box-shadow: 4px 4px 0 #0a4a54; overflow: hidden; transition: transform 0.1s, box-shadow 0.1s; }
+  .project-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #0a4a54; }
+
+  .project-video-wrap { position: relative; width: 100%; padding-top: 56.25%; border-bottom: 3px solid var(--pixel-cyan); background: #000; }
+  .project-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+  .project-thumb { height: 90px; background: #0f3460; display: flex; align-items: center; justify-content: center; border-bottom: 3px solid var(--pixel-cyan); position: relative; overflow: hidden; }
+
+  .project-badge { position: absolute; top: 8px; right: 8px; font-size: 6px; padding: 3px 7px; border: 2px solid; background: rgba(0,0,0,0.5); z-index: 2; }
+  .badge-featured { border-color: var(--pixel-yellow); color: var(--pixel-yellow); }
+  .badge-wip { border-color: var(--pixel-orange); color: var(--pixel-orange); }
+  .badge-done { border-color: var(--pixel-green); color: var(--pixel-green); }
+
+  .project-body { padding: 14px; }
+  .project-title { font-size: 8px; color: var(--pixel-cyan); margin-bottom: 8px; }
+  .project-desc { font-family: var(--font-vt); font-size: 16px; color: rgba(240,240,240,0.8); line-height: 1.5; margin-bottom: 10px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .project-tag { font-size: 6px; padding: 3px 7px; background: rgba(52,152,219,0.15); border: 1px solid var(--pixel-blue); color: var(--pixel-blue); }
+
+  .add-project-btn { border: 3px dashed var(--pixel-gray); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 260px; cursor: pointer; transition: border-color 0.15s; font-family: var(--font-pixel); }
+  .add-project-btn:hover { border-color: var(--pixel-cyan); }
+  .add-icon { font-size: 28px; margin-bottom: 12px; opacity: 0.5; }
+  .add-text { font-size: 7px; color: var(--pixel-gray); }
+
+  /* VOUCHES */
+  .vouches-list { display: flex; flex-direction: column; gap: 16px; }
+  .vouch-item { border: 2px solid var(--pixel-green); background: #071f12; padding: 16px; }
+  .vouch-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .vouch-avatar-placeholder { width: 36px; height: 36px; border-radius: 50%; background: #1a4a2e; border: 2px solid var(--pixel-green); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .vouch-meta { flex: 1; }
+  .vouch-user { font-size: 8px; color: var(--pixel-green); margin-bottom: 3px; }
+  .vouch-date { font-size: 6px; color: var(--pixel-gray); }
+  .vouch-msg { font-family: var(--font-vt); font-size: 17px; color: rgba(240,240,240,0.85); line-height: 1.5; border-top: 1px dashed rgba(46,204,113,0.3); padding-top: 10px; }
+  .vouch-screenshot { margin-top: 12px; border: 2px solid rgba(46,204,113,0.3); width: 100%; display: block; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .contact-card { border: 3px solid var(--pixel-red); background: #1e0a09; box-shadow: 3px 3px 0 #7b241c; padding: 18px; text-align: center; cursor: pointer; transition: transform 0.1s; }
+  .contact-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 #7b241c; }
+  .contact-icon { font-size: 24px; margin-bottom: 10px; }
+  .contact-platform { font-size: 8px; color: var(--pixel-red); margin-bottom: 6px; }
+  .contact-handle { font-family: var(--font-vt); font-size: 18px; color: var(--pixel-white); }
+
+  ::-webkit-scrollbar { width: 8px; background: var(--pixel-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--pixel-gray); border: 2px solid var(--pixel-dark); }
+
+  footer { text-align: center; padding: 24px; border-top: 3px solid rgba(240,240,240,0.1); font-size: 7px; color: var(--pixel-gray); background: var(--pixel-mid); }
+  footer span { color: var(--pixel-red); }
+
+  @media (max-width: 600px) {
+    .about-grid { grid-template-columns: 1fr; }
+    nav { padding: 12px 16px; }
+    section { padding: 36px 16px; }
+    .username { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">◈ JUSTAFP.DEV</div>
+  <ul class="nav-links">
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#projects">PROJECTS</a></li>
+    <li><a href="#vouches">VOUCHES</a></li>
+    <li><a href="#contact">HIRE ME</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-sprite">
+    <svg width="80" height="80" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:80px;">
+      <rect x="5" y="1" width="6" height="6" fill="#f5c518"/>
+      <rect x="6" y="3" width="1" height="1" fill="#0a0a0a"/>
+      <rect x="9" y="3" width="1" height="1" fill="#0a0a0a"/>
+      <rect x="7" y="5" width="2" height="1" fill="#c0392b"/>
+      <rect x="4" y="7" width="8" height="5" fill="#3498db"/>
+      <rect x="2" y="7" width="2" height="4" fill="#3498db"/>
+      <rect x="12" y="7" width="2" height="4" fill="#3498db"/>
+      <rect x="4" y="12" width="3" height="3" fill="#2c3e50"/>
+      <rect x="9" y="12" width="3" height="3" fill="#2c3e50"/>
+      <rect x="4" y="14" width="3" height="2" fill="#1a1a1a"/>
+      <rect x="9" y="14" width="3" height="2" fill="#1a1a1a"/>
+      <rect x="5" y="0" width="6" height="2" fill="#e74c3c"/>
+      <rect x="4" y="1" width="8" height="1" fill="#e74c3c"/>
+    </svg>
+  </div>
+  <div class="username">JustAFrenchPerson / gvbnjfhgjerhg</div>
+  <div class="hero-subtitle">★ Roblox Studio Developer ★</div>
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <span class="status-text">AVAILABLE FOR HIRE</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-title">PLAYER INFO</div>
+  <div class="about-grid">
+    <div class="char-card">
+      <div class="char-frame">
+        <svg width="80" height="80" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="1" width="6" height="6" fill="#f5c518"/>
+          <rect x="6" y="3" width="1" height="1" fill="#0a0a0a"/>
+          <rect x="9" y="3" width="1" height="1" fill="#0a0a0a"/>
+          <rect x="7" y="5" width="2" height="1" fill="#c0392b"/>
+          <rect x="4" y="7" width="8" height="5" fill="#9b59b6"/>
+          <rect x="2" y="7" width="2" height="4" fill="#9b59b6"/>
+          <rect x="12" y="7" width="2" height="4" fill="#9b59b6"/>
+          <rect x="4" y="12" width="3" height="3" fill="#2c3e50"/>
+          <rect x="9" y="12" width="3" height="3" fill="#2c3e50"/>
+          <rect x="4" y="14" width="3" height="2" fill="#1a1a1a"/>
+          <rect x="9" y="14" width="3" height="2" fill="#1a1a1a"/>
+          <rect x="5" y="0" width="6" height="2" fill="#2ecc71"/>
+          <rect x="4" y="1" width="8" height="1" fill="#2ecc71"/>
+        </svg>
+        <div class="char-name-tag">JustAFrenchPerson</div>
+        <div class="char-level">gvbnjfhgjerhg</div>
+      </div>
+    </div>
+    <div>
+      <div class="about-text">
+        Hello! I'm <strong style="color:var(--pixel-yellow)">JustAFrenchPerson</strong>, a passionate Roblox Studio developer with 3 years of experience. I started my scripting journey in June 2023.<br><br>
+        I specialize in complex systems and Client to Server communication style of coding. I really like to organize my code and I hate unorganized code. I have not contributed to over 5k visits yet, but I am very reliable and active.<br><br>
+        Based in France 🇫🇷 — available worldwide, deadlines respected.
+      </div>
+      <div class="about-tags">
+        <span class="tag tag-blue">Lua Scripting</span>
+        <span class="tag tag-green">Game Design</span>
+        <span class="tag tag-purple">UI/UX</span>
+        <span class="tag tag-yellow">DataStore</span>
+        <span class="tag tag-cyan">Remote Events</span>
+        <span class="tag tag-blue">Module Scripts</span>
+        <span class="tag tag-green">Anti-Cheat</span>
+        <span class="tag tag-purple">Tween Service</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-title">PROJECTS</div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-video-wrap">
+        <iframe src="https://www.youtube.com/embed/9dvOsNOsv3c" allowfullscreen loading="lazy"></iframe>
+        <div class="project-badge badge-featured">★ FEATURED</div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">ADMIN PANEL</div>
+        <div class="project-desc">Made at the start of 2026 out of pure creativity. A fully scripted admin panel system built in Roblox Studio.</div>
+        <div class="project-tags">
+          <span class="project-tag">Luau</span>
+          <span class="project-tag">Admin System</span>
+          <span class="project-tag">Remote Event</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#071f12,#0f3020);">
+        <div style="font-size:36px;">🏗️</div>
+        <div class="project-badge badge-done">✔ DONE</div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">PROJECT #2</div>
+        <div class="project-desc">A project is to be added soon. :D</div>
+        <div class="project-tags">
+          <span class="project-tag">nil</span>
+          <span class="project-tag">nil</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1a0a00,#301500);">
+        <div style="font-size:36px;">🎮</div>
+        <div class="project-badge badge-wip">⌛ W.I.P</div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">PROJECT #3</div>
+        <div class="project-desc">A project is to be added soon. :D</div>
+        <div class="project-tags">
+          <span class="project-tag">nil</span>
+          <span class="project-tag">nil</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- VOUCHES -->
+<section id="vouches">
+  <div class="section-title">VOUCHES</div>
+  <div class="vouches-list">
+
+    <div class="vouch-item">
+      <div class="vouch-header">
+        <div class="vouch-avatar-placeholder">🎮</div>
+        <div class="vouch-meta">
+          <div class="vouch-user">@YourPalLex</div>
+          <div class="vouch-date">22/09/2025 — 18:52</div>
+        </div>
+      </div>
+      <div class="vouch-msg">Really fast & reliable, completed my commission the same day I DM'd him just a few hours later. Highly recommend his services as we were looking for a reliable scripter for weeks and he just fixed our script within a few hours. 10/10.</div>
+      <!-- Replace the src below with your Imgur link for the screenshot -->
+       <img class="vouch-screenshot" src="https://imgur.com/a/C5rXHwH" alt="Vouch from YourPalLex">
+    </div>
+
+    <div class="vouch-item">
+      <div class="vouch-header">
+        <div class="vouch-avatar-placeholder">👤</div>
+        <div class="vouch-meta">
+          <div class="vouch-user">@Vouch #2</div>
+          <div class="vouch-date">— 2025</div>
+        </div>
+      </div>
+      <div class="vouch-msg">To be added.</div>
+    </div>
+
+    <div class="vouch-item">
+      <div class="vouch-header">
+        <div class="vouch-avatar-placeholder">👤</div>
+        <div class="vouch-meta">
+          <div class="vouch-user">@Vouch #3</div>
+          <div class="vouch-date">— 2025</div>
+        </div>
+      </div>
+      <div class="vouch-msg">To be added.</div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-title">HIRE ME — CONTACT</div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <div class="contact-platform">DISCORD</div>
+      <div class="contact-handle">gvbnjfhgjerhg | gvbnjfhgjerhg#2864</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🎮</div>
+      <div class="contact-platform">ROBLOX</div>
+      <div class="contact-handle">gvbnjfhgjerhg</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📧</div>
+      <div class="contact-platform">EMAIL</div>
+      <div class="contact-handle">tatislebg123@gmail.com</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>JUSTAFP.DEV © 2025 &nbsp;|&nbsp; Made with <span>♥</span> in France &nbsp;|&nbsp; Roblox Studio Developer</p>
+  <p style="margin-top:8px;color:#c03e3e;">If you see this text then: while true do print("I was here lol") end</p>
+</footer>
+
+</body>
+</html>
+
+<!-- I was here lol -->
